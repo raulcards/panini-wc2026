@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Album Panini Adrenalyn XL WC2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pitch-dark:#0E3A2B;
+    --pitch:#155940;
+    --pitch-light:#1F7350;
+    --chalk:#F2EFE2;
+    --chalk-dim:#D8D3C0;
+    --gold:#C9A24B;
+    --gold-bright:#E8CC7E;
+    --red:#B23A2B;
+    --red-dim:#7A2E24;
+    --green-profit:#4C9A6A;
+    --ink:#0D1C14;
+    --line: rgba(242,239,226,0.14);
+    --line-strong: rgba(242,239,226,0.28);
+    --shadow: 0 10px 30px rgba(0,0,0,0.35);
+    --radius: 10px;
+  }
+  *{box-sizing:border-box;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+  body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    color:var(--chalk);
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 40px, transparent 40px, transparent 80px),
+      linear-gradient(180deg, var(--pitch-dark), var(--pitch) 60%, var(--pitch-dark));
+    min-height:100vh;
+  }
+  .app{max-width:960px; margin:0 auto; padding:18px 16px 60px;}
+
+  .scoreboard{
+    background: linear-gradient(180deg, #0B2E22, #0E3A2B);
+    border:1px solid var(--line-strong);
+    border-radius:var(--radius);
+    padding:18px 20px 0;
+    box-shadow:var(--shadow);
+    position:sticky; top:10px; z-index:20;
+  }
+  .scoreboard-top{display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:8px;}
+  h1{
+    font-family:'Bebas Neue', sans-serif;
+    letter-spacing:1.5px;
+    font-size:clamp(24px,5vw,34px);
+    margin:0;
+    color:var(--gold-bright);
+    text-shadow:0 2px 0 rgba(0,0,0,0.3);
+  }
+  .subtitle{font-size:12px; color:var(--chalk-dim); font-family:'IBM Plex Mono',monospace;}
+  .stat-strip{display:flex; gap:16px; margin:12px 0 0; flex-wrap:wrap;}
+  .stat{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--chalk-dim); display:flex; align-items:baseline; gap:6px;}
+  .stat b{font-family:'Bebas Neue',sans-serif; font-size:20px; color:var(--gold-bright); letter-spacing:0.5px;}
+  .stat.profit-pos b{color:var(--green-profit);}
+  .stat.profit-neg b{color:#f0998a;}
+  .tabs{display:flex; gap:2px; margin-top:14px; overflow-x:auto;}
+  .tab-btn{
+    font-family:'Bebas Neue',sans-serif;
+    letter-spacing:1px;
+    font-size:14px;
+    background:transparent;
+    color:var(--chalk-dim);
+    border:none;
+    border-bottom:3px solid transparent;
+    padding:10px 12px 12px;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .tab-btn.active{color:var(--gold-bright); border-bottom-color:var(--gold);}
+  .tab-btn:hover{color:var(--chalk);}
+
+  main{margin-top:18px;}
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block; animation:fadein .18s ease;}
+  @keyframes fadein{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;}}
+
+  .card{
+    background:rgba(15,45,33,0.55);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:16px;
+    margin-bottom:14px;
+  }
+  .card h2{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:20px; letter-spacing:1px;
+    margin:0 0 12px;
+    color:var(--gold-bright);
+  }
+  label{font-size:12px; color:var(--chalk-dim); display:block; margin-bottom:4px; font-family:'IBM Plex Mono',monospace;}
+  input[type=text], input[type=number], input[type=date], input[type=email], input[type=password], select, textarea{
+    width:100%;
+    background:rgba(0,0,0,0.25);
+    border:1px solid var(--line-strong);
+    color:var(--chalk);
+    border-radius:6px;
+    padding:9px 10px;
+    font-size:14px;
+    font-family:'Inter',sans-serif;
+  }
+  input:focus, select:focus, textarea:focus, button:focus-visible{
+    outline:2px solid var(--gold-bright); outline-offset:1px;
+  }
+  .row{display:flex; gap:10px; flex-wrap:wrap;}
+  .row > div{flex:1; min-width:140px;}
+  .field{margin-bottom:10px;}
+
+  .btn{
+    font-family:'Bebas Neue',sans-serif;
+    letter-spacing:0.5px;
+    font-size:15px;
+    background:linear-gradient(180deg, var(--gold-bright), var(--gold));
+    color:#1a1305;
+    border:none;
+    border-radius:6px;
+    padding:9px 18px;
+    cursor:pointer;
+  }
+  .btn:hover{filter:brightness(1.06);}
+  .btn.secondary{
+    background:transparent;
+    border:1px solid var(--line-strong);
+    color:var(--chalk);
+  }
+  .btn.danger{
+    background:transparent;
+    border:1px solid var(--red);
+    color:#e8b3a9;
+  }
+  .btn.small{padding:5px 10px; font-size:13px;}
+  .btn:disabled{opacity:.4; cursor:not-allowed;}
+
+  .toggle-group{display:flex; gap:8px;}
+  .toggle-opt{
+    flex:1;
+    text-align:center;
+    padding:10px 10px;
+    border:1px solid var(--line-strong);
+    border-radius:6px;
+    cursor:pointer;
+    font-family:'Bebas Neue',sans-serif;
+    letter-spacing:0.5px;
+    font-size:15px;
+    color:var(--chalk-dim);
+  }
+  .toggle-opt.active-add{background:rgba(31,115,80,0.5); color:var(--chalk); border-color:var(--pitch-light);}
+  .toggle-opt.active-sold{background:rgba(178,58,43,0.5); color:var(--chalk); border-color:var(--red);}
+
+  .cat-pills{display:flex; gap:8px; flex-wrap:wrap;}
+  .cat-pill{
+    padding:8px 12px;
+    border-radius:20px;
+    border:1px solid var(--line-strong);
+    cursor:pointer;
+    font-size:13px;
+    color:var(--chalk-dim);
+  }
+  .cat-pill.active{background:var(--gold); color:#1a1305; border-color:var(--gold); font-weight:600;}
+
+  .toast{
+    font-size:13px; color:#c9e8d4; background:rgba(31,115,80,0.35);
+    border:1px solid var(--pitch-light); border-radius:6px; padding:8px 12px; margin-top:10px;
+  }
+  .toast.toast-warn{
+    color:#3a2a08; background:linear-gradient(180deg, var(--gold-bright), var(--gold));
+    border:1px solid #8a6a1f; font-weight:600;
+  }
+  .dup-sold-tag{
+    display:inline-block;
+    font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600;
+    color:#3a2a08; background:linear-gradient(180deg, var(--gold-bright), var(--gold));
+    border-radius:4px; padding:2px 8px;
+  }
+
+  .batch-item{
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:12px 14px;
+    margin-bottom:10px;
+    background:rgba(0,0,0,0.15);
+  }
+  .batch-head{display:flex; justify-content:space-between; align-items:center; gap:10px; cursor:pointer; flex-wrap:wrap;}
+  .batch-name{font-weight:600; font-size:15px;}
+  .batch-meta{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--chalk-dim);}
+  .batch-num{
+    font-family:'Bebas Neue',sans-serif;
+    color:var(--gold-bright);
+    border:1px solid var(--gold);
+    border-radius:50%;
+    width:26px; height:26px;
+    display:inline-flex; align-items:center; justify-content:center;
+    font-size:13px; margin-right:8px;
+  }
+  .entry-list{margin-top:10px; border-top:1px dashed var(--line); padding-top:10px; display:none;}
+  .entry-list.open{display:block;}
+  .entry-row{display:flex; justify-content:space-between; align-items:center; padding:5px 0; font-size:13px; border-bottom:1px solid var(--line);}
+  .entry-row:last-child{border-bottom:none;}
+  .entry-left{display:flex; gap:8px; align-items:center;}
+  .tag{font-family:'IBM Plex Mono',monospace; font-size:11px; padding:2px 6px; border-radius:4px;}
+  .tag.add{background:rgba(31,115,80,0.4); color:#bfe8d2;}
+  .tag.sold{background:rgba(178,58,43,0.4); color:#f0c2b9;}
+
+  .badge-grid{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px;}
+  .badge{
+    width:52px; height:52px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:600; font-size:13px;
+    border:2px solid var(--line-strong);
+    color:var(--chalk-dim);
+    background:rgba(0,0,0,0.2);
+    position:relative;
+  }
+  .badge.owned{background:radial-gradient(circle at 35% 30%, var(--pitch-light), var(--pitch-dark)); border-color:var(--gold); color:var(--chalk);}
+  .badge.sold{border-color:var(--red); color:#f0c2b9; background:rgba(122,46,36,0.3);}
+  .badge.sold::after{
+    content:""; position:absolute; width:70%; height:2px; background:var(--red);
+    transform:rotate(-30deg);
+  }
+  .count-badge{
+    position:absolute; top:-6px; right:-6px;
+    background:var(--gold); color:#1a1305;
+    border-radius:50%; width:19px; height:19px;
+    font-size:10px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono',monospace;
+    border:1px solid var(--pitch-dark);
+  }
+  .empty-state{
+    text-align:center; padding:30px 10px; color:var(--chalk-dim); font-size:14px;
+    border:1px dashed var(--line-strong); border-radius:8px;
+  }
+  .legend{display:flex; gap:16px; font-size:12px; color:var(--chalk-dim); margin-top:12px; flex-wrap:wrap;}
+  .legend span{display:inline-flex; align-items:center; gap:6px;}
+  .dot{width:12px; height:12px; border-radius:50%; display:inline-block;}
+  .dot.owned{background:var(--pitch-light); border:2px solid var(--gold);}
+  .dot.sold{background:rgba(122,46,36,0.5); border:2px solid var(--red);}
+  .dot.vinted{background:rgba(74,144,217,0.5); border:2px solid #4A90D9;}
+  .badge{cursor:pointer;}
+  .badge.vinted-listed{box-shadow:0 0 0 2px #4A90D9 inset;}
+  .vinted-badge{
+    position:absolute; bottom:-6px; left:-6px;
+    background:#4A90D9; color:#fff;
+    border-radius:50%; width:19px; height:19px;
+    font-size:10px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono',monospace;
+    border:1px solid var(--pitch-dark);
+  }
+
+  .needed-item{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:10px 12px; border:1px solid var(--line); border-radius:8px; margin-bottom:8px;
+    background:rgba(0,0,0,0.15);
+  }
+  .needed-left{display:flex; gap:10px; align-items:center;}
+  .needed-badge{
+    font-family:'IBM Plex Mono',monospace; font-weight:600;
+    border:2px dashed var(--chalk-dim); border-radius:50%;
+    width:36px; height:36px; display:flex; align-items:center; justify-content:center; font-size:12px;
+  }
+  .needed-item.fulfilled .needed-badge{border:2px solid var(--gold); color:var(--gold-bright);}
+  .needed-note{font-size:12px; color:var(--chalk-dim);}
+  .fulfilled-tag{font-size:11px; font-family:'IBM Plex Mono',monospace; color:var(--gold-bright); background:rgba(201,162,75,0.2); padding:2px 6px; border-radius:4px;}
+
+  .profit-hero{
+    display:flex; gap:14px; flex-wrap:wrap; margin-top:6px;
+  }
+  .profit-box{
+    flex:1; min-width:140px;
+    border:1px solid var(--line-strong);
+    border-radius:8px;
+    padding:14px;
+    text-align:center;
+    background:rgba(0,0,0,0.18);
+  }
+  .profit-box .lbl{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--chalk-dim); text-transform:uppercase; letter-spacing:1px;}
+  .profit-box .val{font-family:'Bebas Neue',sans-serif; font-size:30px; margin-top:4px;}
+  .profit-box.spent .val{color:#f0998a;}
+  .profit-box.earned .val{color:var(--gold-bright);}
+  .profit-box.net .val.pos{color:var(--green-profit);}
+  .profit-box.net .val.neg{color:#f0998a;}
+
+  .ledger-row{display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--line); font-size:13px; flex-wrap:wrap; gap:6px;}
+  .ledger-row:last-child{border-bottom:none;}
+  .ledger-left{display:flex; gap:8px; align-items:center; flex-wrap:wrap;}
+
+  .footer-actions{text-align:right; margin-top:20px;}
+  .loading{text-align:center; padding:40px; color:var(--chalk-dim); font-family:'IBM Plex Mono',monospace;}
+  .hint{font-size:12px; color:var(--chalk-dim); margin-top:8px;}
+  .login-wrap{min-height:80vh; display:flex; align-items:center; justify-content:center;}
+  .login-card{width:100%; max-width:380px; padding:24px 20px;}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <div class="loading" id="loading">Se încarcă albumul…</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const CATEGORIES = ['Heroes_Contenders','Icon_FF_Logo','Power_Up'];
+const CAT_LABEL = {
+  Heroes_Contenders: 'Heroes & Contenders',
+  Icon_FF_Logo: 'FF Logo Icon',
+  Power_Up: 'Power Up'
+};
+// ---- Supabase (cheia "publishable" e publică prin design; datele sunt protejate de RLS + login) ----
+const SUPABASE_URL = 'https://eudqjrymndpyxfzszbgs.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_tFxSrhB2aHcD5LFzu0uM5Q_XCC2BP1k';
+const sb = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+const EMPTY_STATE = () => ({ batches: [], entries: [], needed: [], sales: [], pendingEditDraft: null, vintedListed: [] });
+
+let state = { batches: [], entries: [], needed: [], sales: [], pendingEditDraft: null, vintedListed: [] };
+let activeTab = 'pachete';
+let expandedBatch = null;
+let formMode = 'added'; // 'added' = cumparare, 'sold' = vanzare
+let newBatchMode = false;
+let saleResolution = null; // pending manual category resolution for an ambiguous sale
+let neededFormOpen = false;
+let activeSubTab = 'Heroes_Contenders'; // which sub-tab is showing inside the grouped "Colecție" tab
+let editingBatchId = null; // batch currently being edited inline in the Pachete list
+let calcPrices = { Heroes_Contenders: 1, Icon_FF_Logo: 5, Power_Up: 9 };
+let calcDiscountThreshold = 5; // strictly more than this many cards => discount kicks in
+let calcDiscountPercent = 20;
+let calcResolution = null; // pending manual category resolution for ambiguous numbers in the calculator
+let calcResult = null; // last computed quote, kept on screen until recalculated
+let catSearch = { Heroes_Contenders:'', Icon_FF_Logo:'', Power_Up:'' };
+
+function genId(){
+  return 'id-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2,8);
+}
+function todayStr(){
+  return new Date().toISOString().slice(0,10);
+}
+function fmtDate(iso){
+  if(!iso) return '';
+  const [y,m,d] = iso.split('-');
+  return `${d}.${m}.${y}`;
+}
+function fmtLei(n){
+  if(n === null || n === undefined || isNaN(n)) return '—';
+  return n.toLocaleString('ro-RO', {maximumFractionDigits:2}) + ' lei';
+}
+
+// ================== STRAT DE DATE: SUPABASE ==================
+const TABLES = {
+  batches:       { key:'batches',      row:(b,i)=>({ id:b.id, name:b.name ?? '', batch_date:b.date ?? null, price:b.price ?? null, num:b.num ?? null, pos:i }) },
+  entries:       { key:'entries',      row:e=>({ id:e.id, batch_id:e.batchId ?? null, category:e.category, card_number:String(e.number), action:e.action, ts:e.ts ?? null, sale_id:e.saleId ?? null }) },
+  needed:        { key:'needed',       row:(n,i)=>({ id:n.id, card_number:String(n.number), note:n.note ?? '', pos:i }) },
+  sales:         { key:'sales',        row:x=>({ id:x.id, num:x.num ?? null, ts:x.ts ?? null, sale_date:x.date ?? null, price:x.price ?? null, units:x.units ?? [] }) },
+  vinted_listed: { key:'vintedListed', row:v=>({ id:v.category+'|'+v.number, category:v.category, card_number:String(v.number) }) }
+};
+const numOrNull = v => (v === null || v === undefined) ? null : Number(v);
+const FROM_ROW = {
+  batches:       r=>({ id:r.id, name:r.name, date:r.batch_date, price:numOrNull(r.price), num:r.num }),
+  entries:       r=>{ const e={ id:r.id, batchId:r.batch_id, category:r.category, number:r.card_number, action:r.action, ts:Number(r.ts)||0 }; if(r.sale_id) e.saleId=r.sale_id; return e; },
+  needed:        r=>({ id:r.id, number:r.card_number, note:r.note || '' }),
+  sales:         r=>({ id:r.id, num:r.num, ts:Number(r.ts)||0, date:r.sale_date, price:numOrNull(r.price), units:r.units || [] }),
+  vinted_listed: r=>({ category:r.category, number:r.card_number })
+};
+const SORTERS = {
+  batches:(a,b)=>a.pos-b.pos, needed:(a,b)=>a.pos-b.pos,
+  entries:(a,b)=>(Number(a.ts)||0)-(Number(b.ts)||0) || String(a.id).localeCompare(String(b.id)),
+  sales:(a,b)=>(Number(a.ts)||0)-(Number(b.ts)||0)
+};
+
+let lastSynced = null;   // ce știe serverul: { tabel: Map(id -> semnătură JSON), settings: string }
+let cloudReady = false;
+let unsynced = false, saveTimer = null, syncPromise = null, syncAgain = false;
+
+// Citește TOATE rândurile unui tabel, pagină cu pagină (ocolește limita de 1000 de rânduri / request).
+async function fetchAll(table){
+  const PAGE = 1000;
+  const all = [];
+  let from = 0;
+  while(true){
+    const { data, error, count } = await sb.from(table).select('*', { count:'exact' }).order('id').range(from, from + PAGE - 1);
+    if(error) throw error;
+    if(!data || data.length === 0) break;
+    all.push(...data);
+    from += data.length;
+    if(count !== null && all.length >= count) break;
+  }
+  return all;
+}
+
+function rowsOf(s){
+  const out = {};
+  Object.keys(TABLES).forEach(name => {
+    const m = new Map();
+    (s[TABLES[name].key] || []).forEach((item, i) => { const r = TABLES[name].row(item, i); m.set(r.id, r); });
+    out[name] = m;
+  });
+  return out;
+}
+function snapshotOf(s){
+  const rows = rowsOf(s), snap = {};
+  Object.keys(rows).forEach(name => {
+    snap[name] = new Map([...rows[name]].map(([id, r]) => [id, JSON.stringify(r)]));
+  });
+  snap.settings = JSON.stringify(s.pendingEditDraft ?? null);
+  return snap;
+}
+
+async function loadFromCloud(){
+  const names = Object.keys(TABLES);
+  const [lists, meta] = await Promise.all([
+    Promise.all(names.map(fetchAll)),
+    sb.from('app_settings').select('pending_edit_draft').eq('id','main').maybeSingle()
+  ]);
+  if(meta.error) throw meta.error;
+  const s = EMPTY_STATE();
+  names.forEach((name, i) => {
+    const rows = lists[i];
+    if(SORTERS[name]) rows.sort(SORTERS[name]);
+    s[TABLES[name].key] = rows.map(FROM_ROW[name]);
+  });
+  s.pendingEditDraft = meta.data ? (meta.data.pending_edit_draft ?? null) : null;
+  state = s;
+  lastSynced = snapshotOf(state);
+  cloudReady = true;
+  unsynced = false;
+}
+
+// Trimite în Supabase doar ce s-a schimbat față de ultima sincronizare.
+async function pushDiff(){
+  const rows = rowsOf(state);
+  for(const name of Object.keys(TABLES)){
+    const cur = rows[name], old = lastSynced[name];
+    const up = [];
+    cur.forEach((r, id) => { const sig = JSON.stringify(r); if(old.get(id) !== sig) up.push([id, r, sig]); });
+    for(let i = 0; i < up.length; i += 500){
+      const chunk = up.slice(i, i + 500);
+      const { error } = await sb.from(name).upsert(chunk.map(x => x[1]));
+      if(error) throw error;
+      chunk.forEach(x => old.set(x[0], x[2]));
+    }
+    const del = [...old.keys()].filter(id => !cur.has(id));
+    for(let i = 0; i < del.length; i += 100){
+      const chunk = del.slice(i, i + 100);
+      const { error } = await sb.from(name).delete().in('id', chunk);
+      if(error) throw error;
+      chunk.forEach(id => old.delete(id));
+    }
+  }
+  const draftSig = JSON.stringify(state.pendingEditDraft ?? null);
+  if(draftSig !== lastSynced.settings){
+    const { error } = await sb.from('app_settings').upsert({ id:'main', pending_edit_draft: state.pendingEditDraft ?? null });
+    if(error) throw error;
+    lastSynced.settings = draftSig;
+  }
+}
+
+function syncToCloud(){
+  if(!cloudReady) return Promise.resolve();
+  if(syncPromise){ syncAgain = true; return syncPromise; }
+  flashSaveStatus('Se salvează…', false, true);
+  syncPromise = (async () => {
+    try{
+      do{ syncAgain = false; await pushDiff(); } while(syncAgain);
+      unsynced = false;
+      flashSaveStatus('✓ Salvat în cloud', false);
+    }catch(e){
+      console.error('Eroare la salvare', e);
+      flashSaveStatus('✗ Nesalvat în cloud — apasă Salvează', true, true);
+    }finally{
+      syncPromise = null;
+    }
+  })();
+  return syncPromise;
+}
+function saveData(){
+  unsynced = true;
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(syncToCloud, 300);
+}
+function saveNow(){
+  clearTimeout(saveTimer);
+  unsynced = true;
+  return syncToCloud();
+}
+window.addEventListener('beforeunload', e => { if(unsynced){ e.preventDefault(); e.returnValue = ''; } });
+
+let statusMsg = '', statusErr = false, statusTimer = null;
+function paintSaveStatus(){
+  const s = document.getElementById('save-status');
+  if(!s) return;
+  s.textContent = statusMsg;
+  s.style.color = statusErr ? '#f0998a' : 'var(--green-profit)';
+}
+function flashSaveStatus(msg, isErr, sticky){
+  statusMsg = msg; statusErr = !!isErr;
+  paintSaveStatus();
+  clearTimeout(statusTimer);
+  if(!sticky) statusTimer = setTimeout(() => { statusMsg = ''; paintSaveStatus(); }, 2500);
+}
+
+// Curăță un backup importat: id-uri lipsă/duplicate, numere ca text.
+function normalizeState(raw){
+  const s = Object.assign(EMPTY_STATE(), raw);
+  ['batches','entries','needed','sales','vintedListed'].forEach(k => { if(!Array.isArray(s[k])) s[k] = []; });
+  ['batches','entries','needed','sales'].forEach(k => {
+    const seen = new Set();
+    s[k].forEach(item => {
+      if(!item.id || seen.has(item.id)) item.id = genId();
+      seen.add(item.id);
+      if(item.number !== undefined) item.number = String(item.number);
+    });
+  });
+  const seenV = new Set();
+  s.vintedListed = s.vintedListed.filter(v => { v.number = String(v.number); const k = v.category + '|' + v.number; if(seenV.has(k)) return false; seenV.add(k); return true; });
+  s.sales.forEach(x => (x.units || []).forEach(u => { u.number = String(u.number); }));
+  return s;
+}
+
+// ================== LOGIN ==================
+function renderLogin(){
+  document.getElementById('app').innerHTML = `
+    <div class="login-wrap">
+      <div class="card login-card">
+        <h1>Album Panini · WC2026</h1>
+        <div class="subtitle" style="margin:6px 0 16px;">Autentificare</div>
+        <form id="login-form">
+          <div class="field"><label for="login-email">Email</label><input type="email" id="login-email" autocomplete="username" required></div>
+          <div class="field"><label for="login-pass">Parolă</label><input type="password" id="login-pass" autocomplete="current-password" required></div>
+          <button class="btn" id="login-btn" type="submit" style="width:100%;">Intră</button>
+          <div id="login-msg"></div>
+        </form>
+      </div>
+    </div>`;
+  document.getElementById('login-form').onsubmit = async (ev) => {
+    ev.preventDefault();
+    const btn = document.getElementById('login-btn');
+    btn.disabled = true; btn.textContent = 'Se conectează…';
+    const { error } = await sb.auth.signInWithPassword({
+      email: document.getElementById('login-email').value.trim(),
+      password: document.getElementById('login-pass').value
+    });
+    if(error){
+      const txt = error.status === 400 ? 'Email sau parolă greșite.' : 'Nu m-am putut conecta: ' + escapeHtml(error.message);
+      document.getElementById('login-msg').innerHTML = `<div class="toast" style="background:rgba(178,58,43,0.3); border-color:var(--red); color:#f0c2b9;">${txt}</div>`;
+      btn.disabled = false; btn.textContent = 'Intră';
+      return;
+    }
+    await startApp();
+  };
+}
+
+async function logout(){
+  if(unsynced){
+    await saveNow();
+    if(unsynced && !confirm('Ai modificări nesalvate în cloud. Ieși oricum?')) return;
+  }
+  await sb.auth.signOut();
+}
+
+async function startApp(){
+  document.getElementById('app').innerHTML = '<div class="loading">Se încarcă albumul din cloud…</div>';
+  try{
+    await loadFromCloud();
+    render();
+  }catch(e){
+    console.error(e);
+    document.getElementById('app').innerHTML = `
+      <div class="login-wrap"><div class="card login-card">
+        <h2>Nu am putut încărca datele</h2>
+        <div class="hint">${escapeHtml(e.message || String(e))}</div>
+        <div style="margin-top:14px; display:flex; gap:8px;">
+          <button class="btn" id="retry-btn">Reîncearcă</button>
+          <button class="btn secondary" id="retry-logout">Ieși</button>
+        </div>
+      </div></div>`;
+    document.getElementById('retry-btn').onclick = startApp;
+    document.getElementById('retry-logout').onclick = () => sb.auth.signOut();
+  }
+}
+
+async function boot(){
+  if(!sb){
+    document.getElementById('app').innerHTML = '<div class="loading">Nu s-a putut încărca biblioteca Supabase. Verifică conexiunea la internet și reîncarcă pagina.</div>';
+    return;
+  }
+  sb.auth.onAuthStateChange((event) => {
+    if(event === 'SIGNED_OUT'){
+      cloudReady = false; unsynced = false; lastSynced = null;
+      state = EMPTY_STATE();
+      saleResolution = null; calcResolution = null; calcResult = null;
+      editingBatchId = null; expandedBatch = null; newBatchMode = false;
+      renderLogin();
+    }
+  });
+  const { data } = await sb.auth.getSession();
+  if(data && data.session) await startApp(); else renderLogin();
+}
+
+function parseNumbers(str){
+  return str.split(',').flatMap(part => {
+    part = part.trim();
+    if(!part) return [];
+    if(/^\d+\s*-\s*\d+$/.test(part)){
+      const [a,b] = part.split('-').map(s => parseInt(s.trim(),10));
+      if(!isNaN(a) && !isNaN(b) && b >= a && (b-a) < 500){
+        const arr = [];
+        for(let i=a;i<=b;i++) arr.push(String(i));
+        return arr;
+      }
+    }
+    return [part];
+  });
+}
+
+// status per category+number = last action chronologically (kept for reference/back-compat)
+function statusOf(category, number){
+  const matches = state.entries.filter(e => e.category === category && e.number === number);
+  if(matches.length === 0) return null;
+  matches.sort((a,b) => a.ts - b.ts);
+  return matches[matches.length-1].action;
+}
+
+// Physical stock still owned for a category+number, oldest-purchased-first (FIFO).
+// Each item in the returned array is the original 'added' entry (carries batchId).
+function stockFor(category, number){
+  const adds = state.entries.filter(e => e.category === category && e.number === number && e.action === 'added').sort((a,b) => a.ts - b.ts);
+  const soldCount = state.entries.filter(e => e.category === category && e.number === number && e.action === 'sold').length;
+  return adds.slice(soldCount);
+}
+function stockCount(category, number){
+  return stockFor(category, number).length;
+}
+// Total physical units currently owned for a number, summed across all 3 categories.
+function globalStockCount(number){
+  return CATEGORIES.reduce((sum, cat) => sum + stockCount(cat, number), 0);
+}
+function isVintedListed(cat, n){
+  return state.vintedListed.some(v => v.category === cat && v.number === n);
+}
+function toggleVintedListed(cat, n){
+  if(isVintedListed(cat, n)){
+    state.vintedListed = state.vintedListed.filter(v => !(v.category === cat && v.number === n));
+  } else {
+    state.vintedListed.push({ category: cat, number: n });
+  }
+  saveData();
+}
+function unlistVinted(cat, n){
+  state.vintedListed = state.vintedListed.filter(v => !(v.category === cat && v.number === n));
+  saveData();
+}
+// Checks which about-to-be-sold numbers were marked "Listat pe Vinted", warns about them, and
+// automatically unlists them (since they're being sold offline right now).
+function checkAndUnlistVinted(itemsByCategory){
+  const warnings = [];
+  Object.keys(itemsByCategory).forEach(cat => {
+    const seen = new Set();
+    (itemsByCategory[cat] || []).forEach(n => {
+      if(seen.has(n)) return;
+      seen.add(n);
+      if(isVintedListed(cat, n)){
+        warnings.push(`#${n} (${CAT_LABEL[cat]})`);
+        unlistVinted(cat, n);
+      }
+    });
+  });
+  return warnings;
+}
+function batchById(id){
+  return state.batches.find(b => b.id === id);
+}
+// Numbers batches by the order they were actually entered (oldest = 1), computed fresh from the
+// live array each time — so it stays gap-free and correct even after batches get deleted.
+function batchDisplayNumbers(){
+  const map = {};
+  state.batches.forEach((b, i) => { map[b.id] = i + 1; });
+  return map;
+}
+
+function allNumbersForCategory(category){
+  const set = new Set();
+  state.entries.filter(e => e.category === category).forEach(e => set.add(e.number));
+  return Array.from(set).sort((a,b) => {
+    const na = parseInt(a,10), nb = parseInt(b,10);
+    if(!isNaN(na) && !isNaN(nb)) return na - nb;
+    return a.localeCompare(b);
+  });
+}
+
+function counts(){
+  let owned = 0;
+  CATEGORIES.forEach(cat => {
+    allNumbersForCategory(cat).forEach(n => { owned += stockCount(cat, n); });
+  });
+  const sold = state.entries.filter(e => e.action === 'sold').length;
+  const totalSpent = state.batches.reduce((sum,b) => sum + (typeof b.price === 'number' ? b.price : 0), 0);
+  const totalEarned = state.sales.reduce((sum,s) => sum + (typeof s.price === 'number' ? s.price : 0), 0);
+  return {owned, sold, needed: state.needed.length, batches: state.batches.length, totalSpent, totalEarned, profit: totalEarned - totalSpent};
+}
+
+// ---------- Actions ----------
+function createBatch(name, date, price){
+  const b = { id: genId(), name, date, price: (price === '' || price === null || isNaN(price)) ? null : Number(price), num: state.batches.length + 1 };
+  state.batches.push(b);
+  saveData();
+  return b;
+}
+function addEntries(batchId, category, numbersStr, action){
+  const nums = parseNumbers(numbersStr);
+  return addEntriesArray(batchId, category, nums, action);
+}
+function addEntriesArray(batchId, category, nums, action){
+  if(!nums || nums.length === 0) return [];
+  const ts = Date.now();
+  nums.forEach((n, i) => {
+    state.entries.push({ id: genId(), batchId, category, number: n, action, ts: ts + i });
+  });
+  saveData();
+  return nums;
+}
+// itemsByCategory: { Heroes_Contenders: ['16','20'], Power_Up: ['3'] }
+// Attributes each sold unit to the batch it FIFO-came from, and records that lineage on the sale
+// so per-batch profit stays correct even if more purchases/sales happen later.
+function addSale(date, price, itemsByCategory){
+  const units = [];
+  const consumedSoFar = {}; // "category|number" -> how many units of it we've already allocated in this sale
+  Object.keys(itemsByCategory).forEach(cat => {
+    (itemsByCategory[cat] || []).forEach(n => {
+      const key = cat + '|' + n;
+      const already = consumedSoFar[key] || 0;
+      const remainingStock = stockFor(cat, n); // FIFO, oldest remaining first, computed BEFORE this sale's entries are pushed
+      const unit = remainingStock[already];
+      consumedSoFar[key] = already + 1;
+      // wasDuplicate reflects stock BEFORE this whole sale (not decremented mid-loop) — true if you had 2+ of this number.
+      units.push({ category: cat, number: n, batchId: unit ? unit.batchId : null, wasDuplicate: remainingStock.length > 1 });
+    });
+  });
+  if(units.length === 0) return null;
+  const saleId = genId();
+  const ts = Date.now();
+  units.forEach((u, i) => {
+    // saleId links this entry back to the sale, so deleting/editing the sale can find & reverse it correctly
+    state.entries.push({ id: genId(), batchId: null, category: u.category, number: u.number, action: 'sold', ts: ts + i, saleId });
+  });
+  const sale = { id: saleId, num: state.sales.length + 1, ts, date: date || todayStr(), price: (price === '' || price === null || isNaN(price)) ? null : Number(price), units };
+  state.sales.push(sale);
+  saveData();
+  return sale;
+}
+// Groups a sale's units by source batch, for display ("din ce plic a venit fiecare cartonaș vândut")
+function groupSaleUnitsByBatch(sale){
+  const map = {};
+  sale.units.forEach(u => {
+    const key = u.batchId || '__unknown__';
+    map[key] = map[key] || [];
+    map[key].push(u.number);
+  });
+  return Object.keys(map).map(key => ({
+    batchId: key === '__unknown__' ? null : key,
+    batchName: key === '__unknown__' ? 'sursă necunoscută' : (batchById(key) ? batchById(key).name : 'pachet șters'),
+    numbers: map[key]
+  }));
+}
+// Groups a sale's units by category, for the confirmation toast
+function groupSaleUnitsByCategory(sale){
+  const map = {};
+  sale.units.forEach(u => {
+    map[u.category] = map[u.category] || [];
+    map[u.category].push(u.number);
+  });
+  return map;
+}
+function deleteEntry(id){
+  const entry = state.entries.find(e => e.id === id);
+  if(entry && entry.action === 'added'){
+    const stillInStock = stockFor(entry.category, entry.number).some(u => u.id === id);
+    if(!stillInStock){
+      alert('Acest cartonaș a fost deja vândut — nu-l poți șterge direct de aici fără să strici evidența stocului. Șterge sau editează vânzarea lui din tab-ul Profit, în schimb.');
+      return;
+    }
+  }
+  state.entries = state.entries.filter(e => e.id !== id);
+  saveData();
+  render();
+}
+function deleteBatch(id){
+  if(!confirm('Ștergi acest pachet și toate intrările lui? Nu se poate anula.')) return;
+  state.batches = state.batches.filter(b => b.id !== id);
+  state.entries = state.entries.filter(e => e.batchId !== id);
+  saveData();
+  render();
+}
+function editBatch(id, name, date, price){
+  const b = batchById(id);
+  if(!b) return;
+  b.name = (name || '').trim() || b.name;
+  b.date = date || b.date;
+  b.price = (price === '' || price === null || isNaN(price)) ? null : Number(price);
+  saveData();
+}
+// Finds the sold-entries that belong to a given sale, handling both new sales (tagged with saleId)
+// and legacy sales made before that tagging existed (best-effort match by category+number).
+function findSaleEntries(sale){
+  const linked = state.entries.filter(e => e.saleId === sale.id);
+  if(linked.length > 0) return linked;
+  const found = [];
+  (sale.units || []).forEach(u => {
+    const candidate = state.entries.find(e =>
+      e.category === u.category && e.number === u.number && e.action === 'sold' &&
+      !e.saleId && !found.includes(e)
+    );
+    if(candidate) found.push(candidate);
+  });
+  return found;
+}
+function deleteSale(id){
+  if(!confirm('Ștergi această vânzare? Cartonașele vândute revin automat în stoc (ca și cum n-ai fi vândut).')) return;
+  const sale = state.sales.find(s => s.id === id);
+  if(sale){
+    const toRemoveIds = new Set(findSaleEntries(sale).map(e => e.id));
+    state.entries = state.entries.filter(e => !toRemoveIds.has(e.id));
+  }
+  state.sales = state.sales.filter(s => s.id !== id);
+  saveData();
+  render();
+}
+// Pulls a sale back out for editing: puts its cards back in stock (like a delete), but keeps a
+// durable backup (saved to storage, survives a page reload) so "Renunță" can restore it exactly.
+function beginEditSale(id){
+  const sale = state.sales.find(s => s.id === id);
+  if(!sale) return;
+  const linkedEntries = findSaleEntries(sale);
+  const removeIds = new Set(linkedEntries.map(e => e.id));
+  state.pendingEditDraft = {
+    sale: JSON.parse(JSON.stringify(sale)),
+    entries: JSON.parse(JSON.stringify(linkedEntries))
+  };
+  state.entries = state.entries.filter(e => !removeIds.has(e.id));
+  state.sales = state.sales.filter(s => s.id !== id);
+  saveData();
+
+  formMode = 'sold';
+  activeTab = 'pachete';
+  render();
+
+  const draftSale = state.pendingEditDraft.sale;
+  const dateInp = document.getElementById('sale-date');
+  const priceInp = document.getElementById('sale-price');
+  const numsInp = document.getElementById('numbers-input');
+  if(dateInp) dateInp.value = draftSale.date;
+  if(priceInp) priceInp.value = draftSale.price != null ? draftSale.price : '';
+  if(numsInp) numsInp.value = draftSale.units.map(u => u.number).join(', ');
+}
+// Restores a sale that was pulled out via beginEditSale, exactly as it was, if the user gives up on editing it.
+function cancelEditSale(){
+  if(!state.pendingEditDraft) return;
+  const { sale, entries } = state.pendingEditDraft;
+  state.entries.push(...entries);
+  state.sales.push(sale);
+  state.pendingEditDraft = null;
+  saveData();
+  render();
+}
+function addNeeded(numbersStr, note){
+  const nums = parseNumbers(numbersStr);
+  nums.forEach(n => {
+    const exists = state.needed.some(x => x.number === n);
+    if(!exists) state.needed.push({ id: genId(), number: n, note: note || '' });
+  });
+  saveData();
+}
+function removeNeeded(id){
+  state.needed = state.needed.filter(x => x.id !== id);
+  saveData();
+  render();
+}
+function resetAll(){
+  if(!confirm('Ștergi TOT albumul (pachete, cartonașe, vânzări, listă de nevoi)? Nu se poate anula.')) return;
+  state = { batches: [], entries: [], needed: [], sales: [], pendingEditDraft: null, vintedListed: [] };
+  saleResolution = null;
+  calcResolution = null;
+  calcResult = null;
+  editingBatchId = null;
+  expandedBatch = null;
+  newBatchMode = false;
+  saveData();
+  render();
+}
+
+function exportData(){
+  try{
+    const dataStr = JSON.stringify(state, null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `panini-adrenalyn-xl-backup-${todayStr()}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    flashSaveStatus('✓ Exportat', false);
+  }catch(e){
+    console.error('Eroare la export', e);
+    alert('Nu am putut exporta backupul.');
+  }
+}
+
+function handleImportFile(file){
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    let parsed;
+    try{
+      parsed = JSON.parse(e.target.result);
+    }catch(err){
+      alert('Fișierul nu a putut fi citit ca JSON valid.');
+      return;
+    }
+    if(!parsed || typeof parsed !== 'object' || !Array.isArray(parsed.batches) || !Array.isArray(parsed.entries)){
+      alert('Fișierul nu pare un backup valid al albumului Panini.');
+      return;
+    }
+    if(!confirm('Acest import înlocuiește COMPLET datele curente din album cu cele din fișier. Nu se poate anula. Continui?')) return;
+    state = normalizeState(parsed);
+    saleResolution = null;
+    calcResolution = null;
+    calcResult = null;
+    editingBatchId = null;
+    expandedBatch = null;
+    newBatchMode = false;
+    saveData();
+    render();
+  };
+  reader.onerror = () => alert('Nu am putut citi fișierul selectat.');
+  reader.readAsText(file);
+}
+
+// ---------- Rendering ----------
+function render(){
+  const app = document.getElementById('app');
+  const c = counts();
+  const profitClass = c.profit >= 0 ? 'profit-pos' : 'profit-neg';
+  app.innerHTML = `
+    <div class="scoreboard">
+      <div class="scoreboard-top">
+        <div>
+          <h1>Album Panini Adrenalyn XL · WC2026</h1>
+          <div class="subtitle">Heroes &amp; Contenders · FF Logo Icon · Power Up</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span id="save-status" style="font-size:12px; font-family:'IBM Plex Mono',monospace;"></span>
+          <button class="btn secondary small" id="save-btn">💾 Salvează</button>
+          <button class="btn secondary small" id="logout-btn">Ieși</button>
+        </div>
+      </div>
+      <div class="stat-strip">
+        <div class="stat"><b>${c.owned}</b> am</div>
+        <div class="stat"><b>${c.sold}</b> vândute</div>
+        <div class="stat"><b>${c.needed}</b> lipsă</div>
+        <div class="stat"><b>${c.batches}</b> pachete</div>
+        <div class="stat ${profitClass}"><b>${c.profit >= 0 ? '+' : ''}${c.profit.toLocaleString('ro-RO',{maximumFractionDigits:2})}</b> lei profit</div>
+      </div>
+      <div class="tabs">
+        ${tabBtn('pachete','Pachete')}
+        ${tabBtn('profit','Profit')}
+        ${tabBtn('calculator','Calculator preț')}
+        ${tabBtn('colectie','Colecție')}
+      </div>
+    </div>
+    <main>
+      <div class="tab-panel ${activeTab==='pachete'?'active':''}" id="panel-pachete"></div>
+      <div class="tab-panel ${activeTab==='profit'?'active':''}" id="panel-profit"></div>
+      <div class="tab-panel ${activeTab==='calculator'?'active':''}" id="panel-calculator"></div>
+      <div class="tab-panel ${activeTab==='colectie'?'active':''}" id="panel-colectie"></div>
+    </main>
+    <div class="footer-actions" style="display:flex; justify-content:flex-end; gap:8px; flex-wrap:wrap;">
+      <button class="btn secondary small" id="export-btn">⬇️ Exportă backup</button>
+      <button class="btn secondary small" id="import-btn">⬆️ Importă backup</button>
+      <input type="file" id="import-file-input" accept="application/json,.json" style="display:none;">
+      <button class="btn danger small" id="reset-btn">Resetează tot albumul</button>
+    </div>
+  `;
+  document.getElementById('reset-btn').onclick = resetAll;
+  document.getElementById('save-btn').onclick = saveNow;
+  document.getElementById('logout-btn').onclick = logout;
+  document.getElementById('export-btn').onclick = exportData;
+  document.getElementById('import-btn').onclick = () => document.getElementById('import-file-input').click();
+  document.getElementById('import-file-input').onchange = (e) => {
+    const file = e.target.files && e.target.files[0];
+    handleImportFile(file);
+    e.target.value = ''; // allow re-selecting the same file later
+  };
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.onclick = () => { activeTab = b.dataset.tab; render(); };
+  });
+
+  paintSaveStatus();
+  if(activeTab === 'pachete') renderPachete();
+  else if(activeTab === 'profit') renderProfit();
+  else if(activeTab === 'calculator') renderCalculator();
+  else if(activeTab === 'colectie') renderColectie();
+}
+
+function tabBtn(key, label){
+  return `<button class="tab-btn ${activeTab===key?'active':''}" data-tab="${key}">${label}</button>`;
+}
+
+// Guess which category a sold number belongs to, based on what's currently owned.
+// Returns { autoItems: {cat:[nums]}, ambiguous: [{number, options}] }
+function resolveSaleCategories(numbersStr){
+  const nums = parseNumbers(numbersStr);
+  const autoItems = {};
+  const ambiguous = [];
+  nums.forEach(n => {
+    const candidates = CATEGORIES.filter(cat => stockCount(cat, n) > 0);
+    if(candidates.length === 1){
+      autoItems[candidates[0]] = autoItems[candidates[0]] || [];
+      autoItems[candidates[0]].push(n);
+    } else {
+      ambiguous.push({ number: n, options: candidates.length > 1 ? candidates : CATEGORIES.slice(), notFound: candidates.length === 0 });
+    }
+  });
+  return { autoItems, ambiguous };
+}
+
+// Turns { cat: [numbers...] } into a priced quote, applying the bulk discount when total count is high enough.
+function computeQuote(itemsByCategory){
+  let totalCount = 0;
+  const breakdown = CATEGORIES.map(cat => {
+    const numbers = itemsByCategory[cat] || [];
+    const unitPrice = calcPrices[cat] || 0;
+    // Where to physically pull each card from: if you currently have 2+ of it, it can come from the
+    // duplicate stash without touching your main album; if you have exactly 1, it has to come from the
+    // main album; if you have 0, you don't actually own it right now — and it shouldn't be priced.
+    const normalNums = [], dupNums = [], missingNums = [];
+    numbers.forEach(n => {
+      const cnt = stockCount(cat, n);
+      if(cnt > 1) dupNums.push(n);
+      else if(cnt === 1) normalNums.push(n);
+      else missingNums.push(n);
+    });
+    const pricedCount = normalNums.length + dupNums.length; // excludes missingNums on purpose
+    totalCount += pricedCount;
+    return { cat, numbers, count: pricedCount, unitPrice, subtotal: pricedCount * unitPrice, normalNums, dupNums, missingNums };
+  }).filter(b => b.count > 0 || b.missingNums.length > 0);
+  const totalBeforeDiscount = breakdown.reduce((sum, b) => sum + b.subtotal, 0);
+  const discountApplies = totalCount > calcDiscountThreshold;
+  const discountAmount = discountApplies ? totalBeforeDiscount * (calcDiscountPercent / 100) : 0;
+  const finalTotal = totalBeforeDiscount - discountAmount;
+  return { breakdown, totalCount, totalBeforeDiscount, discountApplies, discountAmount, finalTotal };
+}
+
+function renderSaleResolutionCard(){
+  const { autoItems, ambiguous } = saleResolution;
+  const bNum = batchDisplayNumbers();
+  const assignableBatches = [...state.batches]
+    .sort((a,b) => (b.date||'').localeCompare(a.date||'') || bNum[b.id] - bNum[a.id])
+    .map(b => ({ id: b.id, name: b.name, date: b.date, displayNum: bNum[b.id] }));
+  const autoParts = Object.keys(autoItems).map(cat => `${CAT_LABEL[cat]}: ${autoItems[cat].join(', ')}`);
+  return `
+    ${autoParts.length ? `<div class="hint">Identificate automat: ${escapeHtml(autoParts.join(' · '))}</div>` : ''}
+    <div class="field" style="margin-top:10px;">
+      <label>Nu sunt sigur la ce categorie aparțin — alege tu:</label>
+      ${ambiguous.map((a, idx) => `
+        <div class="row" style="align-items:center; margin-top:8px;">
+          <div style="flex:0 0 auto;">
+            <div class="needed-badge">${escapeHtml(a.number)}</div>
+          </div>
+          <div>
+            <label style="margin-bottom:2px;">${a.notFound ? `#${escapeHtml(a.number)} nu apare deloc în colecție — alege categoria` : `#${escapeHtml(a.number)} apare în mai multe categorii — alege care`}</label>
+            <select id="resolve-cat-${idx}">
+              ${a.options.map(cat => `<option value="${cat}">${CAT_LABEL[cat]}</option>`).join('')}
+            </select>
+            ${a.notFound ? `
+            <div style="margin-top:6px;">
+              <label style="margin-bottom:2px;">Atribuie-l la un plic pe care l-ai cumpărat deja (opțional)</label>
+              <select id="resolve-assign-batch-${idx}">
+                <option value="">— nu adăuga ca achiziție —</option>
+                ${assignableBatches.map(b => `<option value="${b.id}">#${b.displayNum} · ${escapeHtml(b.name)} · ${fmtDate(b.date)}</option>`).join('')}
+              </select>
+            </div>
+            ` : ''}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+    <button class="btn" id="confirm-resolve">Confirmă vânzarea</button>
+    <button class="btn secondary" id="cancel-resolve">Anulează</button>
+    <div id="toast-area"></div>
+  </div>
+  `;
+}
+
+// Builds "you already have this X times" warnings, computed BEFORE the sale is recorded
+// (since stock counts change once addSale runs).
+function buildDuplicateNotes(itemsByCategory){
+  const notes = [];
+  Object.keys(itemsByCategory).forEach(cat => {
+    const seen = new Set();
+    (itemsByCategory[cat] || []).forEach(n => {
+      if(seen.has(n)) return;
+      seen.add(n);
+      const cnt = stockCount(cat, n);
+      if(cnt > 1){
+        notes.push(`#${n} (${CAT_LABEL[cat]}): aveai ${cnt} exemplare, acum ai ${cnt-1}`);
+      }
+    });
+  });
+  return notes;
+}
+// Shows the normal sale confirmation, plus a separate, visually distinct warning if a duplicate/triplicate was sold.
+function showSaleToast(msg, duplicateNotes, vintedWarnings){
+  const area = document.getElementById('toast-area');
+  if(!area) return;
+  let html = `<div class="toast">${escapeHtml(msg)}</div>`;
+  if(duplicateNotes && duplicateNotes.length){
+    html += `<div class="toast toast-warn">⚠️ Ai vândut o dublură/triplură — ${duplicateNotes.map(escapeHtml).join(' · ')}.</div>`;
+  }
+  if(vintedWarnings && vintedWarnings.length){
+    html += `<div class="toast toast-warn">🛒 Erau listate pe Vinted — scoate-le de acolo: ${vintedWarnings.map(escapeHtml).join(', ')}.</div>`;
+  }
+  area.innerHTML = html;
+}
+
+// Records the sale and shows one confirmation with: what was sold, which batch it came from, and duplicate warnings.
+function finalizeSale(date, price, itemsByCategory){
+  const duplicateNotes = buildDuplicateNotes(itemsByCategory);
+  const vintedWarnings = checkAndUnlistVinted(itemsByCategory);
+  const wasEditing = !!state.pendingEditDraft;
+  const sale = addSale(date, price, itemsByCategory);
+  if(!sale) return null;
+  if(wasEditing){ state.pendingEditDraft = null; saveData(); }
+  render();
+  activeTab = 'pachete';
+  const catBreakdown = Object.entries(groupSaleUnitsByCategory(sale)).map(([cat,nums]) => `${CAT_LABEL[cat]}: ${nums.join(', ')}`).join(' · ');
+  const batchBreakdown = groupSaleUnitsByBatch(sale).map(g => `${g.batchName}: ${g.numbers.join(', ')}`).join(' · ');
+  const msg = (wasEditing ? 'Vânzare actualizată: ' : 'Vândut: ') + `${catBreakdown} — ${fmtLei(sale.price)}. Scăzut din: ${batchBreakdown}.`;
+  setTimeout(() => showSaleToast(msg, duplicateNotes, vintedWarnings), 0);
+  return sale;
+}
+
+function renderPachete(){
+  const panel = document.getElementById('panel-pachete');
+  const bNum = batchDisplayNumbers();
+  const sortedBatches = [...state.batches].sort((a,b) => (b.date||'').localeCompare(a.date||'') || bNum[b.id] - bNum[a.id]);
+
+  panel.innerHTML = `
+    ${state.pendingEditDraft ? `
+    <div class="card" style="border-color:var(--gold); background:rgba(201,162,75,0.12);">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+        <div>✏️ Editezi o vânzare anterioară — modifică numerele, data sau prețul mai jos și apasă „Adaugă vânzarea" ca să o retrimiți. Cartonașele ei au revenit temporar în stoc.</div>
+        <button class="btn secondary small" id="cancel-edit-sale">Renunță la editare</button>
+      </div>
+    </div>
+    ` : ''}
+    <div class="card">
+      <h2>Adaugă intrare</h2>
+      <div class="field">
+        <label>Ce faci?</label>
+        <div class="toggle-group">
+          <div class="toggle-opt ${formMode==='added'?'active-add':''}" data-mode="added">Am cumpărat</div>
+          <div class="toggle-opt ${formMode==='sold'?'active-sold':''}" data-mode="sold">Am vândut</div>
+        </div>
+      </div>
+
+      ${formMode === 'added' ? `
+      <div class="field">
+        <label>Pachet</label>
+        <div class="row">
+          <div>
+            <select id="batch-select" ${newBatchMode ? 'disabled' : ''}>
+              ${state.batches.length === 0 ? '<option value="">— niciun pachet încă —</option>' : ''}
+              ${sortedBatches.map(b => `<option value="${b.id}">#${bNum[b.id]} · ${escapeHtml(b.name)} · ${fmtDate(b.date)}${b.price!=null?(' · '+fmtLei(b.price)):''}</option>`).join('')}
+            </select>
+          </div>
+          <div style="flex:0 0 auto;">
+            <button class="btn secondary small" id="toggle-new-batch">${newBatchMode ? 'Anulează pachet nou' : '+ Pachet nou'}</button>
+          </div>
+        </div>
+      </div>
+      ${newBatchMode ? `
+      <div class="row">
+        <div class="field"><label>Nume pachet</label><input type="text" id="nb-name" placeholder="ex: Fat pack" value="Fat pack ${fmtDate(todayStr())}"></div>
+        <div class="field"><label>Dată</label><input type="date" id="nb-date" value="${todayStr()}"></div>
+        <div class="field"><label>Preț plătit (lei)</label><input type="number" step="0.01" id="nb-price" placeholder="ex: 40"></div>
+      </div>
+      ` : ''}
+      <div class="field">
+        <label>Numere primite, pe categorii (lasă gol categoriile din care n-ai primit nimic)</label>
+        <div class="row">
+          ${CATEGORIES.map(cat => `
+            <div>
+              <label>${CAT_LABEL[cat]}</label>
+              <input type="text" id="numbers-${cat}" placeholder="16, 20, 166">
+            </div>
+          `).join('')}
+        </div>
+      </div>
+      <button class="btn" id="submit-entry">Adaugă achiziția</button>
+      <div id="toast-area"></div>
+    </div>
+      ` : (saleResolution ? renderSaleResolutionCard() : `
+      <div class="row">
+        <div class="field"><label>Dată vânzare</label><input type="date" id="sale-date" value="${todayStr()}"></div>
+        <div class="field"><label>Preț total încasat (lei)</label><input type="number" step="0.01" id="sale-price" placeholder="ex: 15"></div>
+      </div>
+      <div class="field">
+        <label>Numere vândute (ex: 16, 20 sau 166 sau 16-20)</label>
+        <input type="text" id="numbers-input" placeholder="16, 20, 166">
+      </div>
+      <div class="hint">Nu trebuie să alegi categoria — o identific automat din ce ai în colecție. Dacă un număr e ambiguu sau nu-l găsesc, te întreb.</div>
+      <button class="btn" id="submit-entry">Adaugă vânzarea</button>
+      <div id="toast-area"></div>
+    </div>
+      `)}
+
+    <div class="card">
+      <h2>Pachete (${state.batches.length})</h2>
+      ${sortedBatches.length === 0 ? '<div class="empty-state">Niciun pachet adăugat încă. Creează unul mai sus.</div>' :
+        sortedBatches.map(b => renderBatchItem(b, bNum[b.id])).join('')}
+    </div>
+  `;
+
+  document.querySelectorAll('.toggle-opt[data-mode]').forEach(t => {
+    t.onclick = () => { formMode = t.dataset.mode; renderPachete(); };
+  });
+  const toggleBtn = document.getElementById('toggle-new-batch');
+  if(toggleBtn) toggleBtn.onclick = () => { newBatchMode = !newBatchMode; renderPachete(); };
+  const cancelEditBtn = document.getElementById('cancel-edit-sale');
+  if(cancelEditBtn) cancelEditBtn.onclick = () => cancelEditSale();
+
+  const submitEntryBtn = document.getElementById('submit-entry');
+  if(submitEntryBtn) submitEntryBtn.onclick = () => {
+    if(formMode === 'added'){
+      let batchId = document.getElementById('batch-select') ? document.getElementById('batch-select').value : '';
+      if(newBatchMode){
+        const name = document.getElementById('nb-name').value.trim() || 'Pachet';
+        const date = document.getElementById('nb-date').value || todayStr();
+        const price = document.getElementById('nb-price').value;
+        const b = createBatch(name, date, price);
+        batchId = b.id;
+        newBatchMode = false;
+      }
+      if(!batchId){
+        showToast('Alege sau creează un pachet mai întâi.', true);
+        return;
+      }
+      let totalAdded = 0;
+      const breakdown = [];
+      const allAddedNums = [];
+      CATEGORIES.forEach(cat => {
+        const inp = document.getElementById(`numbers-${cat}`);
+        if(inp && inp.value.trim()){
+          const nums = addEntries(batchId, cat, inp.value, 'added');
+          if(nums.length){ totalAdded += nums.length; breakdown.push(`${CAT_LABEL[cat]}: ${nums.join(', ')}`); allAddedNums.push(...nums); }
+        }
+      });
+      if(totalAdded === 0){
+        showToast('Introdu cel puțin un număr, în oricare categorie.', true);
+        return;
+      }
+      expandedBatch = batchId;
+      render();
+      activeTab = 'pachete';
+      const neededNums = new Set(state.needed.map(x => x.number));
+      const matches = [...new Set(allAddedNums.filter(n => neededNums.has(n)))];
+      let msg = `Adăugat: ${breakdown.join(', ')}.`;
+      if(matches.length) msg += ` 🎯 Erau pe lista de nevoie: ${matches.join(', ')}!`;
+      setTimeout(() => showToast(msg), 0);
+    } else {
+      const numbersStr = document.getElementById('numbers-input').value;
+      if(!numbersStr.trim()){
+        showToast('Introdu cel puțin un număr de cartonaș.', true);
+        return;
+      }
+      const date = document.getElementById('sale-date').value || todayStr();
+      const price = document.getElementById('sale-price').value;
+      const { autoItems, ambiguous } = resolveSaleCategories(numbersStr);
+      if(ambiguous.length === 0){
+        finalizeSale(date, price, autoItems);
+      } else {
+        saleResolution = { date, price, autoItems, ambiguous };
+        renderPachete();
+      }
+    }
+  };
+
+  const confirmResolveBtn = document.getElementById('confirm-resolve');
+  if(confirmResolveBtn){
+    confirmResolveBtn.onclick = () => {
+      const { date, price, autoItems, ambiguous } = saleResolution;
+      const itemsByCategory = {};
+      Object.keys(autoItems).forEach(cat => { itemsByCategory[cat] = [...autoItems[cat]]; });
+      ambiguous.forEach((a, idx) => {
+        const sel = document.getElementById(`resolve-cat-${idx}`);
+        const cat = sel ? sel.value : a.options[0];
+        if(a.notFound){
+          const assignSel = document.getElementById(`resolve-assign-batch-${idx}`);
+          const chosenBatchId = assignSel ? assignSel.value : '';
+          if(chosenBatchId){
+            addEntriesArray(chosenBatchId, cat, [a.number], 'added'); // now correctly counts against that batch's cost/profit
+          }
+        }
+        itemsByCategory[cat] = itemsByCategory[cat] || [];
+        itemsByCategory[cat].push(a.number);
+      });
+      saleResolution = null;
+      finalizeSale(date, price, itemsByCategory);
+    };
+  }
+  const cancelResolveBtn = document.getElementById('cancel-resolve');
+  if(cancelResolveBtn){
+    cancelResolveBtn.onclick = () => { saleResolution = null; renderPachete(); };
+  }
+
+  document.querySelectorAll('.batch-head').forEach(h => {
+    h.onclick = (e) => {
+      if(e.target.closest('button')) return;
+      const id = h.dataset.id;
+      expandedBatch = expandedBatch === id ? null : id;
+      renderPachete();
+    };
+  });
+  document.querySelectorAll('.delete-batch').forEach(btn => {
+    btn.onclick = (e) => { e.stopPropagation(); deleteBatch(btn.dataset.id); };
+  });
+  document.querySelectorAll('.edit-batch').forEach(btn => {
+    btn.onclick = (e) => { e.stopPropagation(); editingBatchId = btn.dataset.id; renderPachete(); };
+  });
+  document.querySelectorAll('.cancel-batch-edit').forEach(btn => {
+    btn.onclick = () => { editingBatchId = null; renderPachete(); };
+  });
+  document.querySelectorAll('.save-batch-edit').forEach(btn => {
+    btn.onclick = () => {
+      const name = document.getElementById('eb-name').value;
+      const date = document.getElementById('eb-date').value;
+      const price = document.getElementById('eb-price').value;
+      editBatch(btn.dataset.id, name, date, price);
+      editingBatchId = null;
+      renderPachete();
+    };
+  });
+  document.querySelectorAll('.delete-entry').forEach(btn => {
+    btn.onclick = (e) => { e.stopPropagation(); deleteEntry(btn.dataset.id); };
+  });
+}
+
+function showToast(msg, isError){
+  const area = document.getElementById('toast-area');
+  if(!area) return;
+  area.innerHTML = `<div class="toast" style="${isError ? 'background:rgba(178,58,43,0.3); border-color:var(--red); color:#f0c2b9;' : ''}">${escapeHtml(msg)}</div>`;
+}
+
+function renderBatchItem(b, displayNum){
+  const entries = state.entries.filter(e => e.batchId === b.id).sort((a,b2) => b2.ts - a.ts);
+  const open = expandedBatch === b.id;
+  if(editingBatchId === b.id){
+    return `
+      <div class="batch-item">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+          <span class="batch-num">${displayNum}</span>
+          <span class="batch-name">Editezi pachetul</span>
+        </div>
+        <div class="row">
+          <div class="field"><label>Nume pachet</label><input type="text" id="eb-name" value="${escapeHtml(b.name)}"></div>
+          <div class="field"><label>Dată</label><input type="date" id="eb-date" value="${b.date}"></div>
+          <div class="field"><label>Preț plătit (lei)</label><input type="number" step="0.01" id="eb-price" value="${b.price != null ? b.price : ''}"></div>
+        </div>
+        <button class="btn small save-batch-edit" data-id="${b.id}">Salvează</button>
+        <button class="btn secondary small cancel-batch-edit">Anulează</button>
+      </div>
+    `;
+  }
+  return `
+    <div class="batch-item">
+      <div class="batch-head" data-id="${b.id}">
+        <div>
+          <span class="batch-num">${displayNum}</span>
+          <span class="batch-name">${escapeHtml(b.name)}</span>
+        </div>
+        <div class="batch-meta">${fmtDate(b.date)} · ${fmtLei(b.price)} · ${entries.length} intrări</div>
+        <div>
+          <button class="btn secondary small edit-batch" data-id="${b.id}">Editează</button>
+          <button class="btn danger small delete-batch" data-id="${b.id}">Șterge pachet</button>
+        </div>
+      </div>
+      <div class="entry-list ${open ? 'open' : ''}">
+        ${entries.length === 0 ? '<div class="needed-note">Niciun cartonaș adăugat în acest pachet încă.</div>' :
+          entries.map(e => `
+            <div class="entry-row">
+              <div class="entry-left">
+                <span class="tag add">PRIMIT</span>
+                <span>${CAT_LABEL[e.category]} — #${escapeHtml(e.number)}</span>
+              </div>
+              <button class="btn secondary small delete-entry" data-id="${e.id}">Șterge</button>
+            </div>
+          `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+// Fixed reference prices for the "current unsold collection value" estimate shown atop Colecție.
+// Separate from the editable Calculator prices on purpose — this is a fixed valuation, not a quote tool.
+const COLLECTION_VALUE_PRICES = { Heroes_Contenders: 1, Icon_FF_Logo: 5, Power_Up: 8 };
+function collectionValue(){
+  let total = 0;
+  const byCategory = CATEGORIES.map(cat => {
+    let count = 0;
+    allNumbersForCategory(cat).forEach(n => { count += stockCount(cat, n); });
+    const unitPrice = COLLECTION_VALUE_PRICES[cat];
+    const subtotal = count * unitPrice;
+    total += subtotal;
+    return { cat, count, unitPrice, subtotal };
+  });
+  return { total, byCategory };
+}
+
+function renderColectie(){
+  const panel = document.getElementById('panel-colectie');
+  const subTabs = [...CATEGORIES, 'dubluri', 'nevoie'];
+  const subLabel = Object.assign({}, CAT_LABEL, { dubluri: 'Dubluri', nevoie: 'Ce am nevoie' });
+  const cv = collectionValue();
+  panel.innerHTML = `
+    <div class="card" style="margin-bottom:14px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+        <div>
+          <div class="lbl" style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--chalk-dim); text-transform:uppercase; letter-spacing:1px;">Valoare colecție (nevândută)</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:var(--gold-bright);">${fmtLei(cv.total)}</div>
+        </div>
+        <div class="hint" style="text-align:right;">
+          ${cv.byCategory.map(b => `${CAT_LABEL[b.cat]}: ${b.count}×${fmtLei(b.unitPrice)} = ${fmtLei(b.subtotal)}`).join('<br>')}
+        </div>
+      </div>
+      <div class="hint" style="margin-top:8px;">Calculat la 1 leu / Heroes &amp; Contenders, 5 lei / FF Logo Icon, 8 lei / Power Up — recalculat automat din ce mai ai nevândut acum.</div>
+    </div>
+    <div class="tabs" style="border-bottom:1px solid var(--line); margin-bottom:14px;">
+      ${subTabs.map(t => `<button class="tab-btn ${activeSubTab===t?'active':''}" data-subtab="${t}">${subLabel[t]}</button>`).join('')}
+    </div>
+    <div id="colectie-subpanel"></div>
+  `;
+  document.querySelectorAll('[data-subtab]').forEach(b => {
+    b.onclick = () => { activeSubTab = b.dataset.subtab; renderColectie(); };
+  });
+  if(CATEGORIES.includes(activeSubTab)) renderCategory(activeSubTab, 'colectie-subpanel');
+  else if(activeSubTab === 'nevoie') renderNevoie('colectie-subpanel');
+  else renderDuplicates('colectie-subpanel');
+}
+
+function renderCategory(cat, containerId){
+  const panel = document.getElementById(containerId || `panel-${cat}`);
+  const nums = allNumbersForCategory(cat);
+  const search = catSearch[cat];
+  const filtered = search ? nums.filter(n => n.includes(search)) : nums;
+  let owned=0, sold=0, distinctOwned=0;
+  nums.forEach(n => {
+    const cnt = stockCount(cat,n);
+    owned += cnt;
+    if(cnt > 0) distinctOwned++;
+  });
+  sold = state.entries.filter(e => e.category === cat && e.action === 'sold').length;
+
+  panel.innerHTML = `
+    <div class="card">
+      <h2>${CAT_LABEL[cat]}</h2>
+      <div class="stat-strip" style="margin-top:0;">
+        <div class="stat"><b>${owned}</b> am (total)</div>
+        <div class="stat"><b>${distinctOwned}</b> numere diferite</div>
+        <div class="stat"><b>${sold}</b> vândute</div>
+      </div>
+      <div class="field" style="margin-top:12px;">
+        <label>Caută număr</label>
+        <input type="text" id="cat-search" placeholder="ex: 16" value="${escapeHtml(search)}">
+      </div>
+      ${filtered.length === 0 ? '<div class="empty-state">Niciun cartonaș aici încă. Adaugă din tab-ul Pachete.</div>' : `
+      <div class="badge-grid">
+        ${filtered.map(n => {
+          const cnt = stockCount(cat,n);
+          const cls = cnt > 0 ? 'owned' : 'sold';
+          const listed = cnt > 0 && isVintedListed(cat,n);
+          const title = cnt > 0 ? (cnt > 1 ? `ai ${cnt} exemplare${listed ? ' · listat pe Vinted (click pentru a debifa)' : ' · click pentru a marca listat pe Vinted'}` : `ai cartonașul${listed ? ' · listat pe Vinted (click pentru a debifa)' : ' · click pentru a marca listat pe Vinted'}`) : 'vândut';
+          return `<div class="badge ${cls} ${listed ? 'vinted-listed' : ''}" data-num="${escapeHtml(n)}" title="#${escapeHtml(n)} — ${title}">${escapeHtml(n)}${cnt > 1 ? `<span class="count-badge">${cnt}</span>` : ''}${listed ? `<span class="vinted-badge">V</span>` : ''}</div>`;
+        }).join('')}
+      </div>`}
+      <div class="legend">
+        <span><span class="dot owned"></span> Am cartonașul</span>
+        <span><span class="dot sold"></span> Vândut</span>
+        <span><span class="dot vinted"></span> Listat pe Vinted (click pe cartonaș pentru a bifa/debifa)</span>
+      </div>
+      ${filtered.length > 0 ? `<div class="hint" style="margin-top:14px;">Listă (le deții acum): ${filtered.filter(n => stockCount(cat,n) > 0).length > 0 ? escapeHtml(filtered.filter(n => stockCount(cat,n) > 0).join(', ')) : '—'}</div>` : ''}
+      ${(() => { const vl = filtered.filter(n => stockCount(cat,n) > 0 && isVintedListed(cat,n)); return vl.length > 0 ? `<div class="hint">Listate pe Vinted: ${escapeHtml(vl.join(', '))}</div>` : ''; })()}
+      <div class="hint">Pentru a corecta o greșeală sau a marca o vânzare, folosește formularul din tab-ul Pachete.</div>
+    </div>
+  `;
+  document.getElementById('cat-search').oninput = (e) => {
+    catSearch[cat] = e.target.value;
+    const cursorPos = e.target.selectionStart;
+    renderCategory(cat, containerId);
+    const inp = document.getElementById('cat-search');
+    if(inp){ inp.focus(); inp.setSelectionRange(cursorPos, cursorPos); }
+  };
+  panel.querySelectorAll('.badge').forEach(bd => {
+    bd.onclick = () => {
+      const n = bd.dataset.num;
+      if(stockCount(cat, n) > 0){
+        toggleVintedListed(cat, n);
+        renderCategory(cat, containerId);
+      }
+    };
+  });
+}
+
+function renderDuplicates(containerId){
+  const panel = document.getElementById(containerId || 'panel-dubluri');
+  let rows = [];
+  CATEGORIES.forEach(cat => {
+    allNumbersForCategory(cat).forEach(n => {
+      const cnt = stockCount(cat, n);
+      if(cnt > 1) rows.push({ category: cat, number: n, count: cnt });
+    });
+  });
+  rows.sort((a,b) => (parseInt(a.number)||0)-(parseInt(b.number)||0) || a.category.localeCompare(b.category));
+  const flatList = rows.map(r => `${r.number} (${r.count})`).join(', ');
+
+  panel.innerHTML = `
+    <div class="card">
+      <h2>Dubluri &amp; tripluri</h2>
+      <div class="stat-strip" style="margin-top:0;">
+        <div class="stat"><b>${rows.length}</b> numere cu mai multe exemplare</div>
+      </div>
+      <div class="hint" style="margin-top:10px;">Apar automat aici — orice cartonaș din care ajungi să ai 2 sau mai multe exemplare, direct din achizițiile de la tab-ul Pachete. Nu trebuie adăugat manual.</div>
+      ${rows.length === 0 ? '<div class="empty-state" style="margin-top:14px;">Nicio dublură momentan.</div>' : `
+      <div class="badge-grid">
+        ${rows.map(r => {
+          const listed = isVintedListed(r.category, r.number);
+          const title = `${CAT_LABEL[r.category]} — ai ${r.count} exemplare${listed ? ' · listat pe Vinted (click pentru a debifa)' : ' · click pentru a marca listat pe Vinted'}`;
+          return `<div class="badge owned ${listed ? 'vinted-listed' : ''}" data-cat="${r.category}" data-num="${escapeHtml(r.number)}" title="${title}">${escapeHtml(r.number)}<span class="count-badge">${r.count}</span>${listed ? `<span class="vinted-badge">V</span>` : ''}</div>`;
+        }).join('')}
+      </div>
+      <div class="hint" style="margin-top:14px;">Listă: ${escapeHtml(flatList)}</div>
+      `}
+    </div>
+  `;
+  panel.querySelectorAll('.badge').forEach(bd => {
+    bd.onclick = () => {
+      toggleVintedListed(bd.dataset.cat, bd.dataset.num);
+      renderDuplicates(containerId);
+    };
+  });
+}
+
+function renderNevoie(containerId){
+  const panel = document.getElementById(containerId || 'panel-nevoie');
+  panel.innerHTML = `
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+        <h2 style="margin:0;">Adaugă la lista de nevoie</h2>
+        <button class="btn secondary small" id="toggle-need-form">${neededFormOpen ? 'Ascunde formular' : '+ Adaugă la listă'}</button>
+      </div>
+      ${neededFormOpen ? `
+      <div class="field" style="margin-top:12px;">
+        <label>Numere (ex: 16, 20 sau 16-20)</label>
+        <input type="text" id="need-numbers" placeholder="16, 20, 45">
+      </div>
+      <div class="field">
+        <label>Notă (opțional)</label>
+        <input type="text" id="need-note" placeholder="ex: de la Andrei, schimb dublură">
+      </div>
+      <button class="btn" id="add-need">Adaugă la nevoi</button>
+      ` : ''}
+    </div>
+    <div class="card">
+      <h2>Ce îmi lipsește (${state.needed.length})</h2>
+      ${state.needed.length === 0 ? '<div class="empty-state">Nimic în listă momentan.</div>' :
+        [...state.needed].sort((a,b) => (parseInt(a.number)||0)-(parseInt(b.number)||0)).map(item => renderNeededItem(item)).join('')}
+      ${state.needed.length > 0 ? `<div class="hint" style="margin-top:14px;">Listă: ${escapeHtml([...state.needed].sort((a,b) => (parseInt(a.number)||0)-(parseInt(b.number)||0)).map(x=>x.number).join(', '))}</div>` : ''}
+    </div>
+  `;
+  const toggleNeedBtn = document.getElementById('toggle-need-form');
+  if(toggleNeedBtn) toggleNeedBtn.onclick = () => { neededFormOpen = !neededFormOpen; renderNevoie(containerId); };
+  const addNeedBtn = document.getElementById('add-need');
+  if(addNeedBtn){
+    addNeedBtn.onclick = () => {
+      const numbersStr = document.getElementById('need-numbers').value;
+      const note = document.getElementById('need-note').value;
+      if(!numbersStr.trim()) return;
+      addNeeded(numbersStr, note);
+      render();
+    };
+  }
+  document.querySelectorAll('.remove-need').forEach(btn => {
+    btn.onclick = () => removeNeeded(btn.dataset.id);
+  });
+}
+
+function renderNeededItem(item){
+  const fulfilled = globalStockCount(item.number) > 0;
+  return `
+    <div class="needed-item ${fulfilled ? 'fulfilled' : ''}">
+      <div class="needed-left">
+        <div class="needed-badge">${escapeHtml(item.number)}</div>
+        <div>
+          <div>${fulfilled ? '<span class="fulfilled-tag">✓ Primit</span>' : ''}</div>
+          ${item.note ? `<div class="needed-note">${escapeHtml(item.note)}</div>` : ''}
+        </div>
+      </div>
+      <button class="btn secondary small remove-need" data-id="${item.id}">Șterge</button>
+    </div>
+  `;
+}
+
+// Revenue attributed to one batch: for every sale, split its price evenly across all units sold in that
+// transaction, then sum the shares belonging to units that came from this batch.
+function batchRevenue(batchId){
+  let total = 0;
+  state.sales.forEach(s => {
+    if(s.price == null || !s.units || s.units.length === 0) return;
+    const unitsInBatch = s.units.filter(u => u.batchId === batchId).length;
+    if(unitsInBatch === 0) return;
+    total += (s.price / s.units.length) * unitsInBatch;
+  });
+  return total;
+}
+// Which of this batch's cards are still unsold right now (FIFO-aware: if the same number also
+// came from another batch, only counts the units that are actually still-in-stock from THIS batch),
+// plus their estimated resale value at the fixed Colecție prices.
+function batchRemainingValue(batchId){
+  const byCategory = {};
+  let total = 0;
+  state.entries.filter(e => e.batchId === batchId && e.action === 'added').forEach(addEntry => {
+    const stillInStock = stockFor(addEntry.category, addEntry.number).some(u => u.id === addEntry.id);
+    if(stillInStock){
+      byCategory[addEntry.category] = byCategory[addEntry.category] || [];
+      byCategory[addEntry.category].push(addEntry.number);
+      total += COLLECTION_VALUE_PRICES[addEntry.category] || 0;
+    }
+  });
+  return { byCategory, total };
+}
+
+function renderProfit(){
+  const panel = document.getElementById('panel-profit');
+  const c = counts();
+  const bNum = batchDisplayNumbers();
+  const sortedBatches = [...state.batches].sort((a,b) => (b.date||'').localeCompare(a.date||'') || bNum[b.id] - bNum[a.id]);
+  const sortedSales = [...state.sales].sort((a,b) => (b.date||'').localeCompare(a.date||'') || b.ts - a.ts);
+  // Number sales by when they actually happened (oldest = 1), regardless of display order or any stored .num.
+  const chronologicalSales = [...state.sales].sort((a,b) => a.ts - b.ts);
+  const saleDisplayNum = {};
+  chronologicalSales.forEach((s, i) => { saleDisplayNum[s.id] = i + 1; });
+
+  panel.innerHTML = `
+    <div class="card">
+      <h2>Cheltuieli vs. Încasări</h2>
+      <div class="profit-hero">
+        <div class="profit-box spent">
+          <div class="lbl">Cheltuit pe pachete</div>
+          <div class="val">${fmtLei(c.totalSpent)}</div>
+        </div>
+        <div class="profit-box earned">
+          <div class="lbl">Încasat din vânzări</div>
+          <div class="val">${fmtLei(c.totalEarned)}</div>
+        </div>
+        <div class="profit-box net">
+          <div class="lbl">${c.profit >= 0 ? 'Profit' : 'Pierdere'}</div>
+          <div class="val ${c.profit >= 0 ? 'pos' : 'neg'}">${c.profit >= 0 ? '+' : ''}${fmtLei(c.profit)}</div>
+        </div>
+      </div>
+      <div class="hint">Calculat din prețul fiecărui pachet cumpărat și suma încasată la fiecare vânzare înregistrată.</div>
+    </div>
+
+    <div class="card">
+      <h2>Profit pe fiecare plic</h2>
+      ${sortedBatches.length === 0 ? '<div class="empty-state">Niciun pachet cumpărat încă.</div>' :
+        sortedBatches.map(b => {
+          const revenue = batchRevenue(b.id);
+          const cost = typeof b.price === 'number' ? b.price : 0;
+          const profit = revenue - cost;
+          const remaining = batchRemainingValue(b.id);
+          const remainingParts = CATEGORIES.filter(cat => remaining.byCategory[cat] && remaining.byCategory[cat].length)
+            .map(cat => `${CAT_LABEL[cat]}: ${remaining.byCategory[cat].join(', ')}`);
+          return `
+            <div class="ledger-row" style="flex-direction:column; align-items:stretch;">
+              <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+                <div class="ledger-left">
+                  <span class="batch-num">${bNum[b.id]}</span>
+                  <span>${escapeHtml(b.name)}</span>
+                  <span class="batch-meta">cost ${fmtLei(b.price)} · încasat ${fmtLei(revenue)}</span>
+                </div>
+                <div style="color:${profit >= 0 ? 'var(--green-profit)' : '#f0998a'}; font-family:'Bebas Neue',sans-serif; font-size:16px;">${profit >= 0 ? '+' : ''}${fmtLei(profit)}</div>
+              </div>
+              <div class="hint" style="margin-top:4px;">
+                ${remainingParts.length ? `Încă nevândute: ${escapeHtml(remainingParts.join(' · '))} — valoare estimată ${fmtLei(remaining.total)}` : 'Nimic nevândut din acest plic momentan.'}
+              </div>
+            </div>
+          `;
+        }).join('')}
+      <div class="hint">Când o vânzare amestecă numere din plicuri diferite, împart suma încasată în mod egal, pe numărul de cartonașe vândute în acea tranzacție. Valoarea estimată e calculată la prețurile fixe din Colecție (1/5/8 lei).</div>
+    </div>
+
+    <div class="card">
+      <h2>Vânzări (${sortedSales.length})</h2>
+      ${sortedSales.length === 0 ? '<div class="empty-state">Nicio vânzare înregistrată încă.</div>' :
+        sortedSales.map((s, idx) => {
+          const dupNums = (s.units || []).filter(u => u.wasDuplicate).map(u => u.number);
+          return `
+          <div class="ledger-row">
+            <div class="ledger-left">
+              <span class="batch-num">${saleDisplayNum[s.id] || (idx+1)}</span>
+              <span class="tag sold">VÂNZARE</span>
+              <span class="batch-meta">${fmtDate(s.date)}</span>
+              <span>${Object.entries(groupSaleUnitsByCategory(s)).map(([cat,nums]) => `${CAT_LABEL[cat]}: ${nums.map(escapeHtml).join(', ')}`).join(' · ')}</span>
+              <span class="batch-meta">din: ${groupSaleUnitsByBatch(s).map(g => `${escapeHtml(g.batchName)} (${g.numbers.join(', ')})`).join(', ')}</span>
+              ${dupNums.length ? `<span class="dup-sold-tag">Vândute din dublură/triplură: ${escapeHtml(dupNums.join(', '))}</span>` : ''}
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span>${fmtLei(s.price)}</span>
+              <button class="btn secondary small edit-sale" data-id="${s.id}">Editează</button>
+              <button class="btn danger small delete-sale" data-id="${s.id}">Șterge</button>
+            </div>
+          </div>
+        `;
+        }).join('')}
+    </div>
+
+    <div class="card">
+      <h2>Achiziții (${sortedBatches.length})</h2>
+      ${sortedBatches.length === 0 ? '<div class="empty-state">Niciun pachet cumpărat încă.</div>' :
+        sortedBatches.map(b => `
+          <div class="ledger-row">
+            <div class="ledger-left">
+              <span class="batch-num">${bNum[b.id]}</span>
+              <span>${escapeHtml(b.name)}</span>
+              <span class="batch-meta">${fmtDate(b.date)}</span>
+            </div>
+            <div>${fmtLei(b.price)}</div>
+          </div>
+        `).join('')}
+    </div>
+
+  `;
+  document.querySelectorAll('.delete-sale').forEach(btn => {
+    btn.onclick = () => deleteSale(btn.dataset.id);
+  });
+  document.querySelectorAll('.edit-sale').forEach(btn => {
+    btn.onclick = () => beginEditSale(btn.dataset.id);
+  });
+}
+
+let calcNumbersStr = '';
+
+function renderCalculator(){
+  const panel = document.getElementById('panel-calculator');
+  panel.innerHTML = `
+    <div class="card">
+      <h2>Calculator preț de vânzare</h2>
+      <div class="hint">Introdu numerele pe care vrei să le vinzi — identific automat categoria din colecția ta, la fel ca la o vânzare. Nu se înregistrează nimic în album, e doar un calcul de preț.</div>
+      <div class="field" style="margin-top:12px;">
+        <label>Numere (ex: 16, 20 sau 16-20)</label>
+        <input type="text" id="calc-numbers" placeholder="16, 20, 45" value="${escapeHtml(calcNumbersStr)}">
+      </div>
+      <div class="row">
+        <div class="field"><label>Preț Heroes & Contenders (lei/buc)</label><input type="number" step="0.5" id="calc-price-Heroes_Contenders" value="${calcPrices.Heroes_Contenders}"></div>
+        <div class="field"><label>Preț FF Logo Icon (lei/buc)</label><input type="number" step="0.5" id="calc-price-Icon_FF_Logo" value="${calcPrices.Icon_FF_Logo}"></div>
+        <div class="field"><label>Preț Power Up (lei/buc)</label><input type="number" step="0.5" id="calc-price-Power_Up" value="${calcPrices.Power_Up}"></div>
+      </div>
+      <div class="row">
+        <div class="field"><label>Reducere dacă vinzi peste (nr. cartonașe)</label><input type="number" id="calc-threshold" value="${calcDiscountThreshold}"></div>
+        <div class="field"><label>Reducere (%)</label><input type="number" id="calc-discount" value="${calcDiscountPercent}"></div>
+      </div>
+      <button class="btn" id="calc-submit">Calculează</button>
+      <div id="calc-toast-area"></div>
+    </div>
+    ${calcResolution ? renderCalcResolutionCard() : ''}
+    ${calcResult ? renderCalcResultCard() : ''}
+  `;
+
+  document.getElementById('calc-submit').onclick = () => {
+    calcNumbersStr = document.getElementById('calc-numbers').value;
+    calcPrices = {
+      Heroes_Contenders: Number(document.getElementById('calc-price-Heroes_Contenders').value) || 0,
+      Icon_FF_Logo: Number(document.getElementById('calc-price-Icon_FF_Logo').value) || 0,
+      Power_Up: Number(document.getElementById('calc-price-Power_Up').value) || 0
+    };
+    calcDiscountThreshold = Number(document.getElementById('calc-threshold').value) || 0;
+    calcDiscountPercent = Number(document.getElementById('calc-discount').value) || 0;
+
+    if(!calcNumbersStr.trim()){
+      const t = document.getElementById('calc-toast-area');
+      if(t) t.innerHTML = '<div class="toast" style="background:rgba(178,58,43,0.3); border-color:var(--red); color:#f0c2b9;">Introdu cel puțin un număr.</div>';
+      return;
+    }
+    const { autoItems, ambiguous } = resolveSaleCategories(calcNumbersStr);
+    if(ambiguous.length === 0){
+      calcResult = computeQuote(autoItems);
+      calcResolution = null;
+    } else {
+      calcResolution = { autoItems, ambiguous };
+      calcResult = null;
+    }
+    renderCalculator();
+  };
+
+  const confirmBtn = document.getElementById('calc-confirm-resolve');
+  if(confirmBtn){
+    confirmBtn.onclick = () => {
+      const { autoItems, ambiguous } = calcResolution;
+      const itemsByCategory = {};
+      Object.keys(autoItems).forEach(cat => { itemsByCategory[cat] = [...autoItems[cat]]; });
+      ambiguous.forEach((a, idx) => {
+        const sel = document.getElementById(`calc-resolve-cat-${idx}`);
+        const cat = sel ? sel.value : a.options[0];
+        itemsByCategory[cat] = itemsByCategory[cat] || [];
+        itemsByCategory[cat].push(a.number);
+      });
+      calcResult = computeQuote(itemsByCategory);
+      calcResolution = null;
+      renderCalculator();
+    };
+  }
+  const cancelBtn = document.getElementById('calc-cancel-resolve');
+  if(cancelBtn){
+    cancelBtn.onclick = () => { calcResolution = null; renderCalculator(); };
+  }
+}
+
+function renderCalcResolutionCard(){
+  const { autoItems, ambiguous } = calcResolution;
+  const autoParts = Object.keys(autoItems).map(cat => `${CAT_LABEL[cat]}: ${autoItems[cat].join(', ')}`);
+  return `
+    <div class="card">
+      <h2>Câteva numere sunt neclare</h2>
+      ${autoParts.length ? `<div class="hint">Identificate automat: ${escapeHtml(autoParts.join(' · '))}</div>` : ''}
+      <div class="field" style="margin-top:10px;">
+        ${ambiguous.map((a, idx) => `
+          <div class="row" style="align-items:center; margin-top:8px;">
+            <div style="flex:0 0 auto;"><div class="needed-badge">${escapeHtml(a.number)}</div></div>
+            <div>
+              <label style="margin-bottom:2px;">${a.notFound ? `#${escapeHtml(a.number)} nu e în colecția ta — alege categoria` : `#${escapeHtml(a.number)} apare în mai multe categorii — alege care`}</label>
+              <select id="calc-resolve-cat-${idx}">
+                ${a.options.map(cat => `<option value="${cat}">${CAT_LABEL[cat]}</option>`).join('')}
+              </select>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      <button class="btn" id="calc-confirm-resolve">Calculează prețul</button>
+      <button class="btn secondary" id="calc-cancel-resolve">Anulează</button>
+    </div>
+  `;
+}
+
+function renderCalcResultCard(){
+  const { breakdown, totalCount, totalBeforeDiscount, discountApplies, discountAmount, finalTotal } = calcResult;
+  return `
+    <div class="card">
+      <h2>Cotație (${totalCount} cartonașe)</h2>
+      ${breakdown.map(b => {
+        const pricedNums = [...b.normalNums, ...b.dupNums];
+        return `
+        <div class="ledger-row" style="flex-direction:column; align-items:stretch;">
+          <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+            <div class="ledger-left">
+              <span>${CAT_LABEL[b.cat]}${pricedNums.length ? `: ${escapeHtml(pricedNums.join(', '))}` : ' — niciunul deținut'}</span>
+              ${pricedNums.length ? `<span class="batch-meta">${b.count} buc × ${fmtLei(b.unitPrice)}</span>` : ''}
+            </div>
+            <div>${fmtLei(b.subtotal)}</div>
+          </div>
+          <div class="hint" style="margin-top:4px;">
+            ${b.normalNums.length ? `Din albumul normal: ${escapeHtml(b.normalNums.join(', '))}` : ''}
+            ${b.normalNums.length && b.dupNums.length ? ' · ' : ''}
+            ${b.dupNums.length ? `Din dubluri/tripluri: ${escapeHtml(b.dupNums.join(', '))}` : ''}
+            ${b.missingNums.length ? `${(b.normalNums.length||b.dupNums.length) ? ' · ' : ''}<span style="color:#f0998a;">Nu le ai — nu sunt incluse în preț: ${escapeHtml(b.missingNums.join(', '))}</span>` : ''}
+          </div>
+        </div>
+      `;
+      }).join('')}
+      <div class="ledger-row">
+        <div class="ledger-left">Subtotal</div>
+        <div>${fmtLei(totalBeforeDiscount)}</div>
+      </div>
+      ${discountApplies ? `
+      <div class="ledger-row">
+        <div class="ledger-left" style="color:var(--gold-bright);">Reducere ${calcDiscountPercent}% (peste ${calcDiscountThreshold} cartonașe)</div>
+        <div style="color:var(--gold-bright);">−${fmtLei(discountAmount)}</div>
+      </div>
+      ` : `<div class="hint">Fără reducere — sub pragul de ${calcDiscountThreshold} cartonașe.</div>`}
+      <div class="ledger-row" style="border-top:1px solid var(--line-strong); margin-top:6px; padding-top:10px;">
+        <div class="ledger-left" style="font-family:'Bebas Neue',sans-serif; font-size:20px; color:var(--gold-bright);">TOTAL</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:20px; color:var(--gold-bright);">${fmtLei(finalTotal)}</div>
+      </div>
+      <div class="hint">Acesta e doar un calcul — nu s-a înregistrat nicio vânzare. Când chiar vinzi, notează-o în tab-ul Pachete.</div>
+    </div>
+  `;
+}
+
+function escapeHtml(str){
+  return String(str ?? '').replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+}
+
+boot();
+</script>
+</body>
+</html>
