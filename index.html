@@ -960,6 +960,7 @@ function render(){
           <span id="save-status" style="font-size:12px; font-family:'IBM Plex Mono',monospace;"></span>
           <button class="btn secondary small" id="save-btn">💾 Salvează</button>
           <button class="btn secondary small" id="logout-btn">Ieși</button>
+          <button class="btn secondary small" id="export-btn">⬇️ Exportă</button>
         </div>
       </div>
       <div class="stat-strip">
@@ -983,7 +984,6 @@ function render(){
       <div class="tab-panel ${activeTab==='colectie'?'active':''}" id="panel-colectie"></div>
     </main>
     <div class="footer-actions" style="display:flex; justify-content:flex-end; gap:8px; flex-wrap:wrap;">
-      <button class="btn secondary small" id="export-btn">⬇️ Exportă backup</button>
       <button class="btn secondary small" id="import-btn">⬆️ Importă backup</button>
       <input type="file" id="import-file-input" accept="application/json,.json" style="display:none;">
       <button class="btn danger small" id="reset-btn">Resetează tot albumul</button>
@@ -1105,15 +1105,10 @@ function renderSaleResolutionCard(){
 function buildDuplicateNotes(itemsByCategory){
   const notes = [];
   Object.keys(itemsByCategory).forEach(cat => {
-    const seen = new Set();
-    (itemsByCategory[cat] || []).forEach(n => {
-      if(seen.has(n)) return;
-      seen.add(n);
-      const cnt = stockCount(cat, n);
-      if(cnt > 1){
-        notes.push(`#${n} (${CAT_LABEL[cat]}): aveai ${cnt} exemplare, acum ai ${cnt-1}`);
-      }
-    });
+    const dups = [...new Set(itemsByCategory[cat] || [])].filter(n => stockCount(cat, n) > 1);
+    if(!dups.length) return;
+    dups.sort((x, y) => Number(x) - Number(y));
+    notes.push(`${CAT_LABEL[cat]}: ${dups.join(', ')}`);
   });
   return notes;
 }
